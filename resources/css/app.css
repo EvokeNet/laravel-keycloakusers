@@ -3,3 +3,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.evokelogo {
+    max-width: 300px;
+}
+
+.evokelogo.small {
+    max-width: 60px;
+}

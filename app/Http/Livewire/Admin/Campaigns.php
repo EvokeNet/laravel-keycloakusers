@@ -78,9 +78,9 @@ class Campaigns extends Component
         $this->campaign_id = $campaign->id;
         $this->name = $campaign->name;
         $this->realm = $campaign->realm;
-        $this->username = Crypt::decryptString($campaign->realm);
-        $this->password = Crypt::decryptString($campaign->realm);
-        $this->client_id = Crypt::decryptString($campaign->realm);
+        $this->username = Crypt::decryptString($campaign->username);
+        $this->password = Crypt::decryptString($campaign->password);
+        $this->client_id = Crypt::decryptString($campaign->client_id);
 
         $this->openModal();
     }

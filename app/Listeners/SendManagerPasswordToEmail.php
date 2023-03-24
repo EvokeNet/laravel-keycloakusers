@@ -3,11 +3,12 @@
 namespace App\Listeners;
 
 use App\Events\UserCreated;
-use App\Util\KeyCloak;
+use App\Mail\ManagerCreated;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Mail;
 
-class SendStudentCreatedToKeyCloak implements ShouldQueue
+class SendManagerPasswordToEmail
 {
     /**
      * Create the event listener.
@@ -22,12 +23,10 @@ class SendStudentCreatedToKeyCloak implements ShouldQueue
      */
     public function handle(UserCreated $event): void
     {
-        if ($event->user->role != 'student') {
+        if ($event->user->role != 'manager') {
             return;
         }
 
-        $keycloak = new KeyCloak();
-
-        $keycloak->sendUserToKeycloak($event->user);
+        Mail::to($event->user)->send(new ManagerCreated($event->user));
     }
 }

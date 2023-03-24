@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-use App\Events\StudentCreated;
+use App\Events\UserCreated;
 
 class User extends Authenticatable
 {
@@ -74,6 +74,6 @@ class User extends Authenticatable
     }
 
     protected $dispatchesEvents = [
-        'created' => StudentCreated::class,
+        'created' => UserCreated::class,
     ];
 }

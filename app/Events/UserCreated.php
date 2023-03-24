@@ -11,18 +11,18 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class StudentCreated
+class UserCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public User $student;
+    public User $user;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(User $student)
+    public function __construct(User $user)
     {
-        $this->student = $student;
+        $this->user = $user;
     }
 
     /**

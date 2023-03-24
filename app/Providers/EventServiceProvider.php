@@ -3,8 +3,9 @@
 namespace App\Providers;
 
 use App\Events\GroupCreated;
-use App\Events\StudentCreated;
+use App\Events\UserCreated;
 use App\Listeners\SendGroupCreatedToKeyCloak;
+use App\Listeners\SendManagerPasswordToEmail;
 use App\Listeners\SendStudentCreatedToKeyCloak;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,8 +23,9 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        StudentCreated::class => [
+        UserCreated::class => [
             SendStudentCreatedToKeyCloak::class,
+            SendManagerPasswordToEmail::class,
         ],
         GroupCreated::class => [
             SendGroupCreatedToKeyCloak::class
