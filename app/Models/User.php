@@ -28,9 +28,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'campaign_id',
-        'group_id',
         'role',
+        'campaign_id',
     ];
 
     /**
@@ -62,11 +61,6 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-
-    public function group(): BelongsTo
-    {
-        return $this->BelongsTo(Group::class);
-    }
 
     public function campaign(): BelongsTo
     {

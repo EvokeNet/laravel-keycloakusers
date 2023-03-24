@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\GroupCreated;
+use App\Events\StudentCreated;
 use App\Events\UserCreated;
 use App\Listeners\SendGroupCreatedToKeyCloak;
 use App\Listeners\SendManagerPasswordToEmail;
@@ -24,8 +25,10 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         UserCreated::class => [
-            SendStudentCreatedToKeyCloak::class,
             SendManagerPasswordToEmail::class,
+        ],
+        StudentCreated::class => [
+            SendStudentCreatedToKeyCloak::class,
         ],
         GroupCreated::class => [
             SendGroupCreatedToKeyCloak::class

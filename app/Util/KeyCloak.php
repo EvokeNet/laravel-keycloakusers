@@ -3,6 +3,7 @@
 namespace App\Util;
 
 use App\Models\Group;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
@@ -50,20 +51,21 @@ class KeyCloak
         return $body->access_token;
     }
 
-    public function sendUserToKeycloak(User $user) {
-        $campaign = $user->campaign;
+    public function sendUserToKeycloak(Student $student) {
+        $campaign = $student->campaign;
 
         $token = $this->getCampaignToken($campaign);
 
         $url = $this->baseUrl . '/admin/realms/' . $campaign->realm . '/users';
 
         $response = Http::withToken($token)->post($url, [
-            'email' => $user->email,
+            'email' => $student->email,
             'emailVerified' => true,
-            'firstName' => $user->name,
-            'username' => $user->email,
+            'firstName' => $student->firstname,
+            'lastName' => $student->lastname,
+            'username' => $student->email,
             'enabled' => true,
-            'groups' => [$user->group->name],
+            'groups' => [$student->group->name],
         ]);
 
         // status = 409 = conflict = user already exists

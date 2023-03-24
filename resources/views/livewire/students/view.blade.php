@@ -55,7 +55,8 @@
                 <thead>
                 <tr class="bg-gray-100 border dark:border-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <th class="text-left px-4 py-2 w-20">{{ __('ID') }}</th>
-                    <th class="text-left px-4 py-2">{{ __('Name') }}</th>
+                    <th class="text-left px-4 py-2">{{ __('First name') }}</th>
+                    <th class="text-left px-4 py-2">{{ __('Last name') }}</th>
                     <th class="text-left px-4 py-2">{{ __('Email') }}</th>
                     <th class="text-left px-4 py-2">{{ __('Group') }}</th>
                     <th class="text-center px-4 py-2">{{ __('Actions') }}</th>
@@ -65,7 +66,8 @@
                 @foreach($students as $student)
                     <tr>
                         <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">{{ $student->id }}</td>
-                        <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">{{ $student->name }}</td>
+                        <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">{{ $student->firstname }}</td>
+                        <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">{{ $student->lastname }}</td>
                         <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">{{ $student->email }}</td>
                         <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">{{ $student->group->name }}</td>
                         <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2 text-center">
