@@ -89,6 +89,10 @@ class KeyCloak
 
         $response = Http::withToken($token)->post($url, [
             'name' => $group->name,
+            'attributes' => [
+                'groupname' => [$group->moodle_groupname],
+                'courseid' => [$group->moodle_courseid]
+            ]
         ]);
 
         // status = 409 = conflict = user already exists

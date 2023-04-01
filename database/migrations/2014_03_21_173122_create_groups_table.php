@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->foreignId('campaign_id')->nullable();
+            $table->string('name');
+            $table->string('moodle_groupname');
+            $table->integer('moodle_courseid')->unsigned();
             $table->timestamps();
         });
     }

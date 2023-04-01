@@ -12,8 +12,10 @@ class Group extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
         'campaign_id',
+        'name',
+        'moodle_groupname',
+        'moodle_courseid',
     ];
 
     protected $dispatchesEvents = [

@@ -16,12 +16,14 @@ class Groups extends Component
     use WithPagination, AuthorizesRequests;
 
     public $campaign = null;
-    public $group_id, $name;
+    public $group_id, $name, $moodle_groupname, $moodle_courseid;
     public $isModalOpen = 0;
     public $itemIdToDelete = null;
 
     public $rules = [
-        'name' => 'required|min:3'
+        'name' => 'required|min:3',
+        'moodle_groupname' => 'required|min:3',
+        'moodle_courseid' => 'required|integer'
     ];
 
     public function mount(Campaign $campaign)
@@ -71,8 +73,10 @@ class Groups extends Component
         $this->validate();
 
         Group::updateOrCreate(['id' => $this->group_id], [
+            'campaign_id' => $this->campaign->id,
             'name' => $this->name,
-            'campaign_id' => $this->campaign->id
+            'moodle_groupname' => $this->moodle_groupname,
+            'moodle_courseid' => $this->moodle_courseid,
         ]);
 
         session()->flash('message', $this->group_id ? 'Group updated successfully.' : 'Group created successfully.');
@@ -89,6 +93,8 @@ class Groups extends Component
     {
         $this->group_id = $group->id;
         $this->name = $group->name;
+        $this->moodle_groupname = $group->moodle_groupname;
+        $this->moodle_courseid = $group->moodle_courseid;
 
         $this->openModal();
     }
@@ -141,6 +147,6 @@ class Groups extends Component
      * @var array
      */
     private function resetInputFields(){
-        $this->reset(['group_id', 'name']);
+        $this->reset(['group_id', 'name', 'moodle_groupname', 'moodle_courseid']);
     }
 }
