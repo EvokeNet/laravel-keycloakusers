@@ -20,6 +20,11 @@
                             {{ __('Campaigns') }}
                         </x-nav-link>
                     @endcan
+                    @can('viewAny', \App\Models\SyncLog::class)
+                        <x-nav-link href="{{ route('logs') }}" :active="request()->routeIs('logs')">
+                            {{ __('Synchronization Logs') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 

@@ -4,7 +4,10 @@ namespace App\Providers;
 
 use App\Events\GroupCreated;
 use App\Events\StudentCreated;
+use App\Events\SynchronizationFailure;
+use App\Events\SynchronizationSuccess;
 use App\Events\UserCreated;
+use App\Listeners\SaveSynchronizationLog;
 use App\Listeners\SendGroupCreatedToKeyCloak;
 use App\Listeners\SendManagerPasswordToEmail;
 use App\Listeners\SendStudentCreatedToKeyCloak;
@@ -32,6 +35,12 @@ class EventServiceProvider extends ServiceProvider
         ],
         GroupCreated::class => [
             SendGroupCreatedToKeyCloak::class
+        ],
+        SynchronizationSuccess::class => [
+            SaveSynchronizationLog::class
+        ],
+        SynchronizationFailure::class => [
+            SaveSynchronizationLog::class
         ]
     ];
 

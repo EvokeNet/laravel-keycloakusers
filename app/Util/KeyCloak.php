@@ -2,9 +2,13 @@
 
 namespace App\Util;
 
+use App\Events\SynchronizationFailure;
+use App\Events\SynchronizationSuccess;
 use App\Models\Group;
 use App\Models\Student;
+use App\Models\SyncLog;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
 
@@ -68,16 +72,21 @@ class KeyCloak
             'groups' => [$student->group->name],
         ]);
 
-        // status = 409 = conflict = user already exists
-        if ($response->status() == 409) {
-            return false;
+        $log = [
+            'model' => get_class($student),
+            'model_id' => $student->id,
+            'action' => 'create',
+            'status' => $response->status(),
+            'message' => $response->reason(),
+        ];
+
+        if ($response->status() == 201) {
+            SynchronizationSuccess::dispatch($log);
+
+            return;
         }
 
-        if ($response->status() != 201) {
-            return false;
-        }
-
-        return true;
+        SynchronizationFailure::dispatch($log);
     }
 
     public function sendGroupToKeycloak(Group $group) {
@@ -90,20 +99,25 @@ class KeyCloak
         $response = Http::withToken($token)->post($url, [
             'name' => $group->name,
             'attributes' => [
-                'groupname' => [$group->moodle_groupname],
-                'courseid' => [$group->moodle_courseid]
+                'groupname' => $group->moodle_groupname,
+                'courseid' => $group->moodle_courseid
             ]
         ]);
 
-        // status = 409 = conflict = user already exists
-        if ($response->status() == 409) {
-            return false;
+        $log = [
+            'model' => get_class($group),
+            'model_id' => $group->id,
+            'action' => 'create',
+            'status' => $response->status(),
+            'message' => $response->reason(),
+        ];
+
+        if ($response->status() == 201) {
+            SynchronizationSuccess::dispatch($log);
+
+            return;
         }
 
-        if ($response->status() != 201) {
-            return false;
-        }
-
-        return true;
+        SynchronizationFailure::dispatch($log);
     }
 }

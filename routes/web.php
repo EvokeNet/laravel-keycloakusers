@@ -34,6 +34,8 @@ Route::middleware([
     Route::prefix('admin')->group(function () {
         Route::get('campaigns', \App\Http\Livewire\Admin\Campaigns::class)->name('campaigns');
         Route::get('campaigns/{campaign}/managers', \App\Http\Livewire\Admin\Managers::class)->name('campaigns.managers');
+
+        Route::get('logs', \App\Http\Livewire\Admin\Logs::class)->name('logs');
     });
 
     Route::get('campaigns/{campaign}/students', \App\Http\Livewire\Students::class)->name('campaigns.students');
