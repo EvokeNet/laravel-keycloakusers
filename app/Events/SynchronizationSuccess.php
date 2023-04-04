@@ -18,7 +18,7 @@ class SynchronizationSuccess
     /**
      * Create a new event instance.
      */
-    public function __construct(public array $logObject)
+    public function __construct(public $model, public $action, public $status, public $message)
     {
         //
     }

@@ -2,17 +2,6 @@
 
 namespace App\Providers;
 
-use App\Events\GroupCreated;
-use App\Events\StudentCreated;
-use App\Events\SynchronizationFailure;
-use App\Events\SynchronizationSuccess;
-use App\Events\UserCreated;
-use App\Listeners\SaveSynchronizationLog;
-use App\Listeners\SendGroupCreatedToKeyCloak;
-use App\Listeners\SendManagerPasswordToEmail;
-use App\Listeners\SendStudentCreatedToKeyCloak;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
@@ -24,23 +13,26 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
+        \Illuminate\Auth\Events\Registered::class => [
+            \Illuminate\Auth\Listeners\SendEmailVerificationNotification::class,
         ],
-        UserCreated::class => [
-            SendManagerPasswordToEmail::class,
+        \App\Events\UserCreated::class => [
+            \App\Listeners\SendManagerPasswordToEmail::class,
         ],
-        StudentCreated::class => [
-            SendStudentCreatedToKeyCloak::class,
+        \App\Events\StudentCreated::class => [
+            \App\Listeners\SendStudentCreatedToKeyCloak::class,
         ],
-        GroupCreated::class => [
-            SendGroupCreatedToKeyCloak::class
+        \App\Events\GroupCreated::class => [
+            \App\Listeners\SendGroupCreatedToKeyCloak::class
         ],
-        SynchronizationSuccess::class => [
-            SaveSynchronizationLog::class
+        \App\Events\GroupUpdated::class => [
+            \App\Listeners\SendGroupUpdatedToKeyCloak::class
         ],
-        SynchronizationFailure::class => [
-            SaveSynchronizationLog::class
+        \App\Events\SynchronizationSuccess::class => [
+            \App\Listeners\SaveSynchronizationLog::class
+        ],
+        \App\Events\SynchronizationFailure::class => [
+            \App\Listeners\SaveSynchronizationLog::class
         ]
     ];
 

@@ -58,6 +58,7 @@
                     <th class="text-left px-4 py-2">{{ __('Name') }}</th>
                     <th class="text-left px-4 py-2">{{ __('Moodle group name') }}</th>
                     <th class="text-left px-4 py-2">{{ __('Moodle course ID') }}</th>
+                    <th class="text-left px-4 py-2">{{ __('Keycloak synchronized') }}</th>
                     <th class="text-center px-4 py-2">{{ __('Actions') }}</th>
                 </tr>
                 </thead>
@@ -68,6 +69,17 @@
                         <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">{{ $group->name }}</td>
                         <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">{{ $group->moodle_groupname }}</td>
                         <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">{{ $group->moodle_courseid }}</td>
+                        <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">
+                            @if ($group->keycloak_id)
+                                <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+                                    {{ __('Synchronized') }}
+                                </span>
+                            @else
+                                <span class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300">
+                                    {{ __('Not synchronized') }}
+                            </span>
+                            @endif
+                        </td>
                         <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2 text-center">
                             <button wire:click="edit({{ $group->id }})" class="bg-amber-500 hover:bg-amber-700 text-white py-1 px-3 rounded">{{ __('Edit') }}</button>
                             <button wire:click="confirmItemDeletion({{ $group->id }})" wire:loading.attr="disabled" class="bg-red-500 hover:bg-red-700 text-white py-1 px-3 rounded">{{ __('Delete') }}</button>

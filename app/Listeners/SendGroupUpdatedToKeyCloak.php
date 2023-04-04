@@ -2,12 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Events\GroupCreated;
+use App\Events\GroupUpdated;
 use App\Util\Keycloak\Group;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendGroupCreatedToKeyCloak
+class SendGroupUpdatedToKeyCloak
 {
     /**
      * Create the event listener.
@@ -20,10 +20,10 @@ class SendGroupCreatedToKeyCloak
     /**
      * Handle the event.
      */
-    public function handle(GroupCreated $event): void
+    public function handle(GroupUpdated $event): void
     {
         $keycloak = new Group();
 
-        $keycloak->sendGroupToKeycloak($event->group);
+        $keycloak->updateKeycloakGroup($event->group->campaign, $event->group);
     }
 }

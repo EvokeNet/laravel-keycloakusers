@@ -33,8 +33,10 @@
                 <tr class="bg-gray-100 border dark:border-gray-600 dark:bg-gray-600 dark:text-gray-200">
                     <th class="text-left px-4 py-2 w-20">{{ __('ID') }}</th>
                     <th class="text-left px-4 py-2">{{ __('Model') }}</th>
+                    <th class="text-left px-4 py-2">{{ __('Model ID') }}</th>
                     <th class="text-left px-4 py-2">{{ __('Action') }}</th>
                     <th class="text-center px-4 py-2">{{ __('Message') }}</th>
+                    <th class="text-center px-4 py-2">{{ __('Actions') }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,9 +44,10 @@
                     <tr>
                         <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">{{ $log->id }}</td>
                         <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">{{ $log->model }}</td>
+                        <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">{{ $log->model_id }}</td>
                         <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">{{ $log->action }}</td>
                         <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">
-                            @if ($log->status == 201)
+                            @if (in_array($log->status, [200, 201, 204]))
                                 <span class="bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
                                     {{ $log->message }}
                                 </span>
@@ -53,7 +56,10 @@
                                     {{ $log->message }}
                                 </span>
                             @endif
-
+                        </td>
+                        <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">
+                            <a class="bg-blue-500 hover:bg-blue-700 text-white py-1 mb-6 px-3 rounded my-3 mt-1"
+                               href="{{route($log->route, [$log->routeparam, $log->model_id])}}">View entity</a>
                         </td>
                     </tr>
                 @endforeach

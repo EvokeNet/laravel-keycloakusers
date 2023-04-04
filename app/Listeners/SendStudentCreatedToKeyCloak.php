@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\StudentCreated;
-use App\Util\KeyCloak;
+use App\Util\Keycloak\User;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -22,7 +22,7 @@ class SendStudentCreatedToKeyCloak implements ShouldQueue
      */
     public function handle(StudentCreated $event): void
     {
-        $keycloak = new KeyCloak();
+        $keycloak = new User();
 
         $keycloak->sendUserToKeycloak($event->student);
     }

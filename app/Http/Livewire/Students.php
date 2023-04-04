@@ -26,9 +26,19 @@ class Students extends Component
         'group' => 'required'
     ];
 
-    public function mount(Campaign $campaign)
+    public function mount(Campaign $campaign, Student $student)
     {
         $this->campaign = $campaign;
+
+        if ($student->exists) {
+            $this->student_id = $student->id;
+            $this->firstname = $student->firstname;
+            $this->lastname = $student->lastname;
+            $this->email = $student->email;
+            $this->group = $student->group->id;
+
+            $this->isModalOpen = 1;
+        }
     }
 
     /**

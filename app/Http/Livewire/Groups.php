@@ -15,7 +15,7 @@ class Groups extends Component
 {
     use WithPagination, AuthorizesRequests;
 
-    public $campaign = null;
+    public $campaign;
     public $group_id, $name, $moodle_groupname, $moodle_courseid;
     public $isModalOpen = 0;
     public $itemIdToDelete = null;
@@ -26,9 +26,18 @@ class Groups extends Component
         'moodle_courseid' => 'required|integer'
     ];
 
-    public function mount(Campaign $campaign)
+    public function mount(Campaign $campaign, Group $group)
     {
         $this->campaign = $campaign;
+
+        if ($group->exists) {
+            $this->group_id = $group->id;
+            $this->name = $group->name;
+            $this->moodle_groupname = $group->moodle_groupname;
+            $this->moodle_courseid = $group->moodle_courseid;
+
+            $this->isModalOpen = 1;
+        }
     }
 
     /**

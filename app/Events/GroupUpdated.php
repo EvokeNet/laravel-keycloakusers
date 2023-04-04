@@ -2,25 +2,27 @@
 
 namespace App\Events;
 
+use App\Models\Group;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class SynchronizationFailure
+class GroupUpdated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    public Group $group;
 
     /**
      * Create a new event instance.
      */
-    public function __construct(public $model, public $action, public $status, public $message)
+    public function __construct(Group $group)
     {
-        //
+        $this->group = $group;
     }
 
     /**

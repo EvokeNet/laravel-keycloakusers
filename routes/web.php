@@ -1,5 +1,6 @@
 <?php
 
+use App\Tasks\SyncGroupsUids;
 use App\Util\KeyCloak;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
@@ -38,12 +39,11 @@ Route::middleware([
         Route::get('logs', \App\Http\Livewire\Admin\Logs::class)->name('logs');
     });
 
-    Route::get('campaigns/{campaign}/students', \App\Http\Livewire\Students::class)->name('campaigns.students');
-    Route::get('campaigns/{campaign}/groups', \App\Http\Livewire\Groups::class)->name('campaigns.groups');
+    Route::get('campaigns/{campaign}/students/{student?}', \App\Http\Livewire\Students::class)->name('campaigns.students');
+    Route::get('campaigns/{campaign}/groups/{group?}', \App\Http\Livewire\Groups::class)->name('campaigns.groups');
 });
 
 Route::get('/test', function () {
-    $config = config('keycloak.baseurl');
-
-    dd($config);
+    $test = new SyncGroupsUids;
+    dd($test());
 });

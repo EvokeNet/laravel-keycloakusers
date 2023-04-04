@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->uuid('keycloak_id')->nullable();
             $table->string('firstname');
             $table->string('lastname');
             $table->string('email');
