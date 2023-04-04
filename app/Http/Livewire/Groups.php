@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Imports\GroupsImport;
 use App\Models\Campaign;
 use App\Models\Group;
 use App\View\Components\AdminAppLayout;
@@ -9,16 +10,19 @@ use App\View\Components\AppLayout;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Groups extends Component
 {
-    use WithPagination, AuthorizesRequests;
+    use WithPagination, AuthorizesRequests, WithFileUploads;
 
     public $campaign;
     public $group_id, $name, $moodle_groupname, $moodle_courseid;
-    public $isModalOpen = 0;
+    public $isModalOpen, $isUploadModalOpen = 0;
     public $itemIdToDelete = null;
+    public $file;
 
     public $rules = [
         'name' => 'required|min:3',
@@ -157,5 +161,49 @@ class Groups extends Component
      */
     private function resetInputFields(){
         $this->reset(['group_id', 'name', 'moodle_groupname', 'moodle_courseid']);
+    }
+
+    /**
+     * Show the form for upload bulk groups.
+     */
+    public function upload()
+    {
+        $this->openUploadModal();
+    }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    public function openUploadModal()
+    {
+        $this->isUploadModalOpen = true;
+    }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    public function closeUploadModal()
+    {
+        $this->isUploadModalOpen = false;
+    }
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    public function uploadGroups()
+    {
+        $this->validate([
+            'file' => 'required|mimes:csv|max:2048', // 2MB Max.
+        ]);
+
+        Excel::import(new GroupsImport, $this->file);
+
+        $this->isUploadModalOpen = false;
     }
 }

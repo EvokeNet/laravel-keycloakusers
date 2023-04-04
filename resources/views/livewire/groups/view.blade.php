@@ -45,9 +45,13 @@
         @endif
 
         <button wire:click="create()" class="bg-blue-500 hover:bg-blue-700 text-white py-1 mb-6 px-3 rounded my-3 mt-1">Create new group</button>
-
         @if($isModalOpen)
             @include('livewire.groups.modalform')
+        @endif
+
+        <button wire:click="upload()" class="bg-teal-500 hover:bg-teal-700 text-white py-1 mb-6 px-3 rounded my-3 mt-1 ml-4"><i class="fa fa-upload"></i> Upload bulk groups</button>
+        @if($isUploadModalOpen)
+            @include('livewire.groups.uploadform')
         @endif
 
         @if (count($groups) > 0)

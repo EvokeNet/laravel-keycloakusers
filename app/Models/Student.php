@@ -7,7 +7,6 @@ use App\Events\StudentUpdated;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Ramsey\Uuid\Uuid;
 
 class Student extends Model
 {
@@ -35,7 +34,6 @@ class Student extends Model
     {
         return $this->BelongsTo(Campaign::class);
     }
-
 
     protected $dispatchesEvents = [
         'created' => StudentCreated::class,
