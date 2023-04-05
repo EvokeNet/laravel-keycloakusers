@@ -1,0 +1,4 @@
+campaign_id,group_id,firstname,lastname,email
+1,1,Student,One,s1@email.com
+1,1,Student,Two,s2@email.com
+1,1,Student,Three,s3@email.com

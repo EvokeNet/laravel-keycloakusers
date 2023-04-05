@@ -196,7 +196,7 @@ class Groups extends Component
      *
      * @var array
      */
-    public function uploadGroups()
+    public function processUpload()
     {
         $this->validate([
             'file' => 'required|mimes:csv|max:2048', // 2MB Max.

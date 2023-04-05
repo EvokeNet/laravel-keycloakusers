@@ -1,6 +1,6 @@
 <x-dialog-modal wire:model="isUploadModalOpen">
     <x-slot name="title">
-        {{ __('Upload bulk groups') }}
+        {{ __('Upload bulk students') }}
     </x-slot>
 
     <x-slot name="content">
@@ -16,11 +16,11 @@
                     <x-input-error for="file" class="mt-2" />
                     <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3">
                         <p>CSV comma separated only.</p>
-                        <p>One group per line.</p>
+                        <p>One student per line.</p>
                     </div>
                     <a
                         class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150"
-                        href="{{asset('/templates/groups.csv')}}"><i class="fa fa-download"></i> Download a template file</a>
+                        href="{{asset('/templates/students.csv')}}"><i class="fa fa-download"></i> Download a template file</a>
                 </div>
             </div>
         </form>
