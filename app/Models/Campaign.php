@@ -12,8 +12,7 @@ class Campaign extends Model
     protected $fillable = [
         'name',
         'realm',
-        'username',
-        'password',
         'client_id',
+        'client_secret',
     ];
 }
