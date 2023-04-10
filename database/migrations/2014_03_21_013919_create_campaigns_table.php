@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('realm');
-            $table->string('username');
-            $table->string('password');
-            $table->string('client_id');
+            $table->text('client_id');
+            $table->text('client_secret');
             $table->text('token')->nullable();
             $table->string('expires')->nullable();
             $table->timestamps();

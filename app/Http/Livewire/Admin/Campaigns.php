@@ -13,16 +13,15 @@ class Campaigns extends Component
 {
     use WithPagination, AuthorizesRequests;
 
-    public $campaign_id, $name, $realm, $username, $password, $client_id;
+    public $campaign_id, $name, $realm, $client_id, $client_secret;
     public $isModalOpen = 0;
     public $itemIdToDelete = null;
 
     public $rules = [
         'name' => 'required|min:3',
         'realm' => 'required|min:3',
-        'username' => 'required|min:3',
-        'password' => 'required|min:3',
         'client_id' => 'required|min:3',
+        'client_secret' => 'required|min:3',
     ];
 
     /**
@@ -58,9 +57,8 @@ class Campaigns extends Component
         Campaign::updateOrCreate(['id' => $this->campaign_id], [
             'name' => $this->name,
             'realm' => $this->realm,
-            'username' => Crypt::encryptString($this->username),
-            'password' => Crypt::encryptString($this->password),
             'client_id' => Crypt::encryptString($this->client_id),
+            'client_secret' => Crypt::encryptString($this->client_secret),
         ]);
 
         session()->flash('message', $this->campaign_id ? 'Campaign updated successfully.' : 'Campaign created successfully.');
@@ -78,9 +76,8 @@ class Campaigns extends Component
         $this->campaign_id = $campaign->id;
         $this->name = $campaign->name;
         $this->realm = $campaign->realm;
-        $this->username = Crypt::decryptString($campaign->username);
-        $this->password = Crypt::decryptString($campaign->password);
         $this->client_id = Crypt::decryptString($campaign->client_id);
+        $this->client_secret = Crypt::decryptString($campaign->client_secret);
 
         $this->openModal();
     }
@@ -134,6 +131,6 @@ class Campaigns extends Component
      */
     private function resetInputFields()
     {
-        $this->reset(['campaign_id', 'name', 'realm', 'username', 'password', 'client_id']);
+        $this->reset(['campaign_id', 'name', 'realm', 'client_id', 'client_secret']);
     }
 }
