@@ -29,9 +29,10 @@ class Base
         $url = $this->baseUrl . '/realms/' . $campaign->realm . '/protocol/openid-connect/token';
 
         $response = Http::asForm()->post($url, [
-            'grant_type' => 'client_credentials',
+            'grant_type' => 'password',
+            'username' => Crypt::decryptString($campaign->username),
+            'password' => Crypt::decryptString($campaign->password),
             'client_id' => Crypt::decryptString($campaign->client_id),
-            'client_secret' => Crypt::decryptString($campaign->client_secret),
         ]);
 
         if ($response->status() != 200) {

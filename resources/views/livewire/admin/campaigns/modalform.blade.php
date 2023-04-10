@@ -17,14 +17,19 @@
                     <x-input-error for="realm" class="mt-2" />
                 </div>
                 <div class="mb-4">
+                    <x-label for="username" value="{{ __('Username') }}" />
+                    <x-input id="username" type="text" wire:model.defer="username" />
+                    <x-input-error for="username" class="mt-2" />
+                </div>
+                <div class="mb-4">
+                    <x-label for="password" value="{{ __('Password') }}" />
+                    <x-input id="password" type="text" wire:model.defer="password" />
+                    <x-input-error for="password" class="mt-2" />
+                </div>
+                <div class="mb-4">
                     <x-label for="client_id" value="{{ __('Client ID') }}" />
                     <x-input id="client_id" type="text" wire:model.defer="client_id" />
                     <x-input-error for="client_id" class="mt-2" />
-                </div>
-                <div class="mb-4">
-                    <x-label for="client_secret" value="{{ __('Client Secret') }}" />
-                    <x-input id="client_secret" type="text" wire:model.defer="client_secret" />
-                    <x-input-error for="client_secret" class="mt-2" />
                 </div>
             </div>
         </form>
