@@ -50,17 +50,19 @@
                         <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">{{ $campaign->name }}</td>
                         <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2">{{ $campaign->realm }}</td>
                         <td class="border dark:border-gray-600 dark:text-gray-400 px-4 py-2 text-center">
-                            <a href="{{route('campaigns.managers', $campaign->id) }}" class="text-lg mr-1 bg-slate-500 hover:bg-slate-700 text-white py-1 px-3 rounded">
-                                <i class="fas fa-user-secret"></i>
-                            </a>
-                            <a href="{{route('campaigns.groups', $campaign->id) }}" class="text-lg mr-1 bg-violet-500 hover:bg-violet-700 text-white py-1 px-3 rounded">
-                                <i class="fas fa-people-roof"></i>
-                            </a>
-                            <a href="{{route('campaigns.students', $campaign->id) }}" class="text-lg mr-1 bg-green-500 hover:bg-green-700 text-white py-1 px-3 rounded">
-                                <i class="fas fa-user"></i>
-                            </a>
-                            <button wire:click="edit({{ $campaign->id }})" class="bg-amber-500 hover:bg-amber-700 text-white py-1 px-3 rounded">{{ __('Edit') }}</button>
-                            <button wire:click="confirmItemDeletion({{ $campaign->id }})" wire:loading.attr="disabled" class="bg-red-500 hover:bg-red-700 text-white py-1 px-3 rounded">{{ __('Delete') }}</button>
+                            <div class="block mb-2">
+                                <a href="{{route('campaigns.managers', $campaign->id) }}" class="mr-1 bg-slate-500 hover:bg-slate-700 text-white py-1 px-2 rounded">
+                                    Managers
+                                </a>
+                                <a href="{{route('campaigns.groups', $campaign->id) }}" class="mr-1 bg-violet-500 hover:bg-violet-700 text-white py-1 px-2 rounded">
+                                    Groups
+                                </a>
+                                <a href="{{route('campaigns.students', $campaign->id) }}" class="mr-1 bg-green-500 hover:bg-green-700 text-white py-1 px-2 rounded">
+                                    Students
+                                </a>
+                            </div>
+                            <button wire:click="edit({{ $campaign->id }})" class="bg-amber-500 hover:bg-amber-700 text-white py-1 px-3 rounded text-sm">{{ __('Edit') }}</button>
+                            <button wire:click="confirmItemDeletion({{ $campaign->id }})" wire:loading.attr="disabled" class="bg-red-500 hover:bg-red-700 text-white py-1 px-3 rounded text-sm">{{ __('Delete') }}</button>
                         </td>
                     </tr>
                 @endforeach
@@ -73,20 +75,20 @@
 
     <x-confirmation-modal wire:model="itemIdToDelete">
         <x-slot name="title">
-            Você tem certeza disso?
+            Are you sure?
         </x-slot>
 
         <x-slot name="content">
-            <p class="my-5">O registro da campanha será removido e não poderá ser recuperado!</p>
+            <p class="my-5">The record will be deleted and it will not be possible to recover it!</p>
         </x-slot>
 
         <x-slot name="footer">
             <x-secondary-button wire:click="$set('itemIdToDelete', false)" wire:loading.attr="disabled">
-                Cancelar
+                Cancel
             </x-secondary-button>
 
             <x-danger-button class="ml-2" wire:click="delete({{ $itemIdToDelete }})" wire:loading.attr="disabled">
-                Sim, pode excluir!
+                Yes, delete it!
             </x-danger-button>
         </x-slot>
     </x-confirmation-modal>

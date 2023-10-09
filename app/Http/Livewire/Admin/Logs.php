@@ -26,17 +26,19 @@ class Logs extends Component
 
         $logs = SyncLog::orderBy('id', 'desc')->paginate(10);
 
-        $logs->each(function ($item) {
-            if ($item->model == Group::class) {
-                $item->route = 'campaigns.groups';
-                $item->routeparam = $item->group->campaign_id;
-            }
+        if ($logs->count()) {
+            $logs->each(function ($item) {
+                if ($item->model == Group::class) {
+                    $item->route = 'campaigns.groups';
+                    $item->routeparam = $item->group->campaign_id;
+                }
 
-            if ($item->model == Student::class) {
-                $item->route = 'campaigns.students';
-                $item->routeparam = $item->student->campaign_id;
-            }
-        });
+                if ($item->model == Student::class) {
+                    $item->route = 'campaigns.students';
+                    $item->routeparam = $item->student->campaign_id;
+                }
+            });
+        }
 
         return view('livewire.admin.logs.view', ['logs' => $logs])
             ->layout(AdminAppLayout::class);
