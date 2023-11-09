@@ -19,6 +19,10 @@ return new class extends Migration
             $table->text('client_secret');
             $table->text('token')->nullable();
             $table->string('expires')->nullable();
+            $table->integer('moodle_courseid')->nullable();
+            $table->integer('moodle_coursetemplateid')->nullable();
+            $table->string('moodle_courseshortname')->nullable();
+            $table->string('moodle_coursefullname')->nullable();
             $table->timestamps();
         });
     }

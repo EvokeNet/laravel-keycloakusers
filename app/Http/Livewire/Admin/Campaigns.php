@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Util\Moodle\Course;
 use App\View\Components\AdminAppLayout;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Component;
@@ -13,7 +14,7 @@ class Campaigns extends Component
 {
     use WithPagination, AuthorizesRequests;
 
-    public $campaign_id, $name, $realm, $client_id, $client_secret;
+    public $campaign_id, $name, $realm, $client_id, $client_secret, $newcourse, $coursetemplate, $courseshortname, $coursefullname;
     public $isModalOpen = 0;
     public $itemIdToDelete = null;
 
@@ -33,7 +34,15 @@ class Campaigns extends Component
 
         $campaigns = Campaign::orderBy('id', 'desc')->paginate(10);
 
-        return view('livewire.admin.campaigns.view', ['campaigns' => $campaigns])
+        $options = [
+            '1' => 'Create a new course',
+            '2' => 'Duplicate an existing course'
+        ];
+
+        $courseUtil = new Course();
+        $courses = $courseUtil->getAll();
+
+        return view('livewire.admin.campaigns.view', ['campaigns' => $campaigns, 'options' => $options, 'courses' => $courses])
             ->layout(AdminAppLayout::class);
     }
 
@@ -47,18 +56,37 @@ class Campaigns extends Component
         $this->openModal();
     }
 
+    public function getStoreRules()
+    {
+        $rules = $this->rules;
+
+        if ($this->newcourse) {
+            $rules['courseshortname'] = 'required';
+            $rules['coursefullname'] = 'required';
+        }
+
+        if ($this->newcourse == 2) {
+            $rules['coursetemplate'] = 'required';
+        }
+
+        return $rules;
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store()
     {
-        $this->validate();
+        $this->validate($this->getStoreRules());
 
         Campaign::updateOrCreate(['id' => $this->campaign_id], [
             'name' => $this->name,
             'realm' => $this->realm,
             'client_id' => Crypt::encryptString($this->client_id),
             'client_secret' => Crypt::encryptString($this->client_secret),
+            'moodle_coursetemplateid' => $this->coursetemplate,
+            'moodle_courseshortname' => $this->courseshortname,
+            'moodle_coursefullname' => $this->coursefullname,
         ]);
 
         session()->flash('message', $this->campaign_id ? 'Campaign updated successfully.' : 'Campaign created successfully.');

@@ -33,6 +33,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         \App\Events\SynchronizationFailure::class => [
             \App\Listeners\SaveSynchronizationLog::class
+        ],
+        \App\Events\CampaignCreated::class => [
+            \App\Listeners\SendCampaignCreatedToMoodle::class
         ]
     ];
 
