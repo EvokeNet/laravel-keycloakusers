@@ -58,15 +58,14 @@
             @if ($newcourse > 0)
                 <div class="flex flex-row gap-4">
                     <div class="basis-1/2">
-                        <x-label for="courseshortname" value="{{ __('Short Name') }}" />
-                        <x-input id="courseshortname" type="text" wire:model.defer="courseshortname" />
-                        <x-input-error for="courseshortname" class="mt-2" />
-                    </div>
-
-                    <div class="basis-1/2">
                         <x-label for="coursefullname" value="{{ __('Full Name') }}" />
                         <x-input id="coursefullname" type="text" wire:model.defer="coursefullname" />
                         <x-input-error for="coursefullname" class="mt-2" />
+                    </div>
+                    <div class="basis-1/2">
+                        <x-label for="courseshortname" value="{{ __('Short Name') }}" />
+                        <x-input id="courseshortname" type="text" wire:model.defer="courseshortname" />
+                        <x-input-error for="courseshortname" class="mt-2" />
                     </div>
                 </div>
             @endif

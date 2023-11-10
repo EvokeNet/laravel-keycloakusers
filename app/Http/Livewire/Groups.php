@@ -57,6 +57,10 @@ class Groups extends Component
 
         $view = view('livewire.groups.view', ['groups' => $groups]);
 
+        if (isset($this->campaign->moodle_courseid)) {
+            $this->moodle_courseid = $this->campaign->moodle_courseid;
+        }
+
         if ($user->role == 'admin') {
             $view->layout(AdminAppLayout::class);
 

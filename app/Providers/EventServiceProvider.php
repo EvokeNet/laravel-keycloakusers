@@ -23,7 +23,8 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\SendStudentCreatedToKeyCloak::class,
         ],
         \App\Events\GroupCreated::class => [
-            \App\Listeners\SendGroupCreatedToKeyCloak::class
+            \App\Listeners\SendGroupCreatedToKeyCloak::class,
+            \App\Listeners\SendGroupCreatedToMoodle::class
         ],
         \App\Events\GroupUpdated::class => [
             \App\Listeners\SendGroupUpdatedToKeyCloak::class

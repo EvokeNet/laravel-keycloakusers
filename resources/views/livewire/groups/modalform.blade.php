@@ -16,11 +16,13 @@
                     <x-input id="moodle_groupname" type="text" wire:model.defer="moodle_groupname" />
                     <x-input-error for="moodle_groupname" class="mt-2" />
                 </div>
-                <div class="mb-4">
-                    <x-label for="moodle_courseid" value="{{ __('Moodle course ID') }}" />
-                    <x-input id="moodle_courseid" type="text" wire:model.defer="moodle_courseid" />
-                    <x-input-error for="moodle_courseid" class="mt-2" />
-                </div>
+                @if ($moodle_courseid == null)
+                    <div class="mb-4">
+                        <x-label for="moodle_courseid" value="{{ __('Moodle course ID') }}" />
+                        <x-input id="moodle_courseid" type="text" wire:model.defer="moodle_courseid" />
+                        <x-input-error for="moodle_courseid" class="mt-2" />
+                    </div>
+                @endif
             </div>
         </form>
     </x-slot>
